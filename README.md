@@ -4,6 +4,8 @@ La necesidad que fue presentada por parte del socio fue la de generar un sitio q
 # Secciones del Sitio
 ## Inicio de Sesión
 
+### Previsualización de la Sección
+![alt text](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/InicioSesion.png)
 
 ### Objetivo de la Sección
 Ingrese el objetivo general de esta sección: ¿Cuál es su propósito?
