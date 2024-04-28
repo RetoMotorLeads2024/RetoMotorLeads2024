@@ -27,7 +27,7 @@ Cuando el usuario haya terminado de llenar todos los campos que exigen comunicac
 
 ## Auto Buscado
 ### Previsualización de la sección
-![alt text](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/AutoBuscado.png)
+![Foto Sección Auto Buscado](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/AutoBuscado.png)
 
 ### Objetivo de la Sección
 Se podrán observar los diferentes valores del auto con las especificaciones de los campos llenados anteriormente en el menú respecto a los meses que se desee cotizar.
