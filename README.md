@@ -33,3 +33,6 @@ Cuando el usuario haya terminado de llenar todos los campos que exigen comunicac
 Se podrán observar los diferentes valores del auto con las especificaciones de los campos llenados anteriormente en el menú respecto a los meses que se desee cotizar.
 
 ### Funcionalidad de la Sección
+Una vez reciba todos los datos ingresados en la pantalla anterior (Menú de Autos), despliega la información del auto. Primeramente muestra la información general como "Marca", "Modelo", "Version", "Año", "Kilometraje", y "Color". El botón a un lado de esta información, "Cotizar nuevo auto", regresará al usuario a la pantalla de Menú de Autos al ser presionado.
+
+En seguida, muestra la información de precio de venta, precio medio, y precio de compra, los cuales los obtenemos mediante el endpoint "historic", dentro del cual existe otro diccionario con "sale_price", "medium_price" y "purchase_price".
