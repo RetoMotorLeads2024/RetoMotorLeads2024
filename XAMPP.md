@@ -1,5 +1,5 @@
 # XAMPP para Windows
-Para hacer pruebas y comprobar el funcionamiento de nuestra solución y diseñó se utilizó XAMPP, es por eso que es necesario para nosotros agregar una breve guía de instalación y manejo de XAMPP.
+Para hacer pruebas y comprobar el funcionamiento de nuestra solución y diseño, se utilizó XAMPP, es por eso que es necesario para nosotros agregar una breve guía de instalación y manejo de XAMPP.
 
 # Instalación
 1. Accede a la página oficial https://www.apachefriends.org/es/index.html
