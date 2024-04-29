@@ -27,7 +27,7 @@ Para hacer pruebas y comprobar el funcionamiento de nuestra solución y diseño,
 
 ![alt text](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/apache.png)
 
-### Sólo queda probar ingresando a: http://localhost/Reto/index.php  (Recuerda colocar el nombre de la carpeta creada en htdocs, mi caso es: Reto)
+### Sólo queda probar ingresando a: http://localhost/Reto/index.php  (Recuerda colocar el nombre de la carpeta creada en htdocs, nuestro caso es: Reto)
 
 
 
