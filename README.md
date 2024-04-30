@@ -14,7 +14,7 @@ El alcance del proyecto que fue especificado por parte del socio no estipula nin
 
 ## Menú de Autos
 ### Previsualización de la Sección
-![alt text](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/MenuAutos.png)
+![alt text](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/Imagenes/MenuAutos.png)
 
 ### Objetivo de la Sección
 Será aquí donde el usuario podrá buscar el auto que le interesa a través del llenado completamente secuencial de un
@@ -27,7 +27,7 @@ Cuando el usuario haya terminado de llenar todos los campos que exigen comunicac
 
 ## Auto Buscado
 ### Previsualización de la sección
-![Foto Sección Auto Buscado](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/AutoBuscado.png)
+![Foto Sección Auto Buscado](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/Imagenes/AutoBuscado.png)
 
 ### Objetivo de la Sección
 Se podrán observar los diferentes valores del auto con las especificaciones de los campos llenados anteriormente en el menú respecto a los meses que se desee cotizar.
