@@ -33,7 +33,7 @@ Cuando el usuario haya terminado de llenar todos los campos que exigen comunicac
 Se podrán observar los diferentes valores del auto con las especificaciones de los campos llenados anteriormente en el menú respecto a los meses que se desee cotizar.
 
 ### Funcionalidad de la Sección
-Una vez reciba todos los datos ingresados en la pantalla anterior (Menú de Autos), despliega la información del auto. Primeramente muestra la información general como "Marca", "Modelo", "Version", "Año", "Kilometraje", y "Color". El botón a un lado de esta información, "Cotizar nuevo auto", regresará al usuario a la pantalla de Menú de Autos al ser presionado.
+Una vez recibidos todos los datos ingresados en la pantalla anterior (Menú de Autos), despliega la información del auto. Primeramente, muestra la información general como "Marca", "Modelo", "Version", "Año", "Kilometraje", y "Color". El botón a un lado de esta información, "Cotizar nuevo auto", regresará al usuario a la pantalla de Menú de Autos al ser presionado.
 
 En seguida, muestra la información de precio de venta, precio medio, y precio de compra, los cuales los obtenemos mediante el endpoint "historic", dentro del cual existe otro diccionario con los endpoints "sale_price", "medium_price" y "purchase_price" que son los que nos interesan. Esos serán los valores desplegados junto con la variación.
 Para graficar tomamos el número de datos solicitados y los precios de venta, medio y compra a lo largo del tiempo, y de esta forma dibujamos 3 gráficas. El tiempo se puede modificar através de los botones "3 meses", "6 meses", "1 año", "2 años" y "Max", lo que cambiará la cantidad de datos representados en la gráfica y la variación de los precios.
