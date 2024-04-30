@@ -4,7 +4,7 @@ La necesidad que fue presentada por parte del socio fue la de generar un sitio q
 # Secciones del Sitio
 ## Inicio de Sesión
 ### Previsualización de la Sección
-![alt text](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/InicioSesion.png)
+![alt text](https://github.com/RetoMotorLeads2024/RetoMotorLeads2024/blob/main/Imagenes/InicioSesion.png)
 
 ### Objetivo de la Sección
 Se espera que esta página sea utilizada como estructura base para ofrecer la funcionalidad de inicio de sesión, recuperación de contraseña y registro.
