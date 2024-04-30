@@ -9,16 +9,16 @@
         <frameset rows='10%,90%' noresize border=0  >
             <frame src='encabezado.html'>
             <frameset cols='70%, 30%'>
-                <frameset rows='20%, 62%,18%'>
+                <frameset rows='20%, 80%'>
                     <frame src='http://localhost/reto/AutoBuscado/autoBuscadoDatos.php?datosFormulario=".$datosFormulario."'>
-                    <frame src='http://localhost/reto/AutoBuscado/grafica.php?v=".$_GET["idVehiculo"]."&t=3' scrolling='no'> 
-                    <frame src='http://localhost/reto/AutoBuscado/kilometraje.html?v=".$_GET["idVehiculo"]."&t=3' scrolling='no'> 
+                    <frame src='http://localhost/reto/AutoBuscado/grafica.php?v=".$_GET["idVehiculo"]."&t=3&mil=".$datosFormulario."' scrolling='no'> 
                 </frameset>
         
                 <frame src='infoLateral.html'>
         
             </frameset>
         </frameset>
+        
     
     </html>";
 
@@ -30,7 +30,6 @@
     $idVehiculo = $_GET["idVehiculo"];
     
     paginaAutoBuscado($datosFormulario);
-
     
     
 ?>
