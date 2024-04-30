@@ -1,0 +1,14 @@
+.tituloCarro{
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20pt;
+    text-align: left;
+    line-height: 1.1;
+}
+
+.subtituloCarro{
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10pt;
+    text-align: left;
+}
