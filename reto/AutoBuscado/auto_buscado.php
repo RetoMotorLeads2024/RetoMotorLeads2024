@@ -5,21 +5,23 @@
             <title>Motorleads</title>
             <meta charset='utf-8'>
         </head>
-    
-        <frameset rows='10%,90%' noresize border=0  >
-            <frame src='encabezado.html' scrolling='no'>
-            <frameset cols='75%, 25%'>
-                <frameset rows='20%, 80%'>
-                    <frame src='http://localhost/reto/AutoBuscado/autoBuscadoDatos.php?datosFormulario=".$datosFormulario."' scrolling='no'>
-                    <frame src='http://localhost/reto/AutoBuscado/grafica.php?v=".$_GET["idVehiculo"]."&t=3&mil=".$datosFormulario."'> 
-                </frameset>
-        
-                <frame src='infoLateral.html'>
-        
-            </frameset>
-        </frameset>
-        
-    
+        <table width='100%' style='border: 0px; margin: 0px'>
+            <tr style='border: 0px;'>
+                <td style='border: 0px;' width='100%' colspan='2'><iframe src='encabezado.html' width='100%' height='150'></iframe></td>
+            </tr>
+            <tr style='border: 0px;'>
+                <td width='70%' style='border: 0px;'>
+                    <iframe src='http://localhost/reto/AutoBuscado/autoBuscadoDatos.php?datosFormulario=".$datosFormulario."' width='100%' height='100%'></iframe>
+                </td>
+                <td rowspan='2' valign='top' style='border: 0px;'>
+                    <iframe src='infoLateral.html' width='100%' height='100%'></iframe>
+                </td>
+            <tr style='border: 0px;'>
+                <td width='70%' style='border: 0px;'>
+                    <iframe src='http://localhost/reto/AutoBuscado/grafica.php?v=".$_GET["idVehiculo"]."&t=3&mil=".$datosFormulario."' width='100%' height='1000'></iframe>
+                </td style='border: 0px;'>
+            </tr>
+        </table>
     </html>";
 
     }
