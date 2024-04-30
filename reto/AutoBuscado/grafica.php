@@ -2,7 +2,6 @@
     <html>
         <head>
             <title>Hola mundo</title>
-            <!-- <link href="a.css" rel="stylesheet" type="text/css"> -->
             <meta charset='utf-8'>
             <link rel='preconnect' href='https://fonts.googleapis.com'>
             <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
@@ -14,14 +13,13 @@
         <body>
             <center>
             <table>
-                <!-- <canvas id="gr"></canvas> -->
                 <tr>
                     <td>
                         <table width="100%">
                             <tr>
-                                <td class="subtituloCarro">Valor a la Venta</td>
-                                <td class="subtituloCarro">Valor Medio</td>
-                                <td class="subtituloCarro">Valor a la Compra</td>
+                                <td class="subtituloCarro">Valor a la Venta<canvas id="venta" width="11" height="11"></canvas></td>
+                                <td class="subtituloCarro">Valor Medio<canvas id="medio" width="11" height="11"></canvas></td>
+                                <td class="subtituloCarro">Valor a la Compra<canvas id="compra" width="11" height="11"></canvas></td>
                             </tr>
                             <tr id="precios"></tr> <!-- En el js se coloca el resto de la tabla -->
                             <tr id="periodo"></tr>
@@ -29,11 +27,28 @@
                         </table>
                     </td>
                 </tr>
-                <tr></tr>
                 <tr>
-                    <td><canvas id="gr" width="800" height="350"></canvas></td>
+                    <td id="botones"></td>
                 </tr>
-                <tr></tr>
+                <tr style="height:60%;">
+                    <td><canvas id="gr" width="900" height="250" style="width:100%; height: 100%;"></canvas></td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100%" style="text-align: center;">
+                            <tr>
+                                <td>Kilometro Esperado</td>
+                                <td>Kilometraje Promedio</td>
+                            </tr>
+                            <tr id="km" style="font-weight: bold;"></tr>
+                            <tr>
+                                <td colspan="2">
+                                    <canvas id="esquema" width="700" style="width:80%;"></canvas>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </table>
             </center>
             
@@ -45,8 +60,9 @@
     $temp=$_GET['t'];
     $datos=file_get_contents("https://motorleads-api-d3e1b9991ce6.herokuapp.com/api/v1/vehicles/".$v."/pricings?filter[since]=".$temp);
     $datos=json_encode($datos);
+    $mil=$_GET['mil'];
     echo
     "
-    <script>llenarDatos(".$datos.")</script>
+    <script>llenarDatos(".$datos.", '".$v."',".$mil.")</script>
     "
 ?>
