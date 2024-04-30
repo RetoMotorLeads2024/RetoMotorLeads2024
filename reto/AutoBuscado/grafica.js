@@ -81,6 +81,24 @@ function dim(n){
 }
 
 /*
+objectivo: Encontrar maximos y minimos de una serie de datos.
+
+params:
+    datos: diccionario de la API (solo historic)
+    
+retorna: un arreglo con minimo y maximo.
+*/
+function encuentraExtremos(datos){
+    min=datos[0]["sale_price"];
+    max=datos[0]["sale_price"];
+    for(i=0;i<datos.length;i++){
+        min = Math.min(datos[i]["sale_price"], datos[i]["purchase_price"], datos[i]["medium_price"],min);
+        max = Math.max(datos[i]["sale_price"], datos[i]["purchase_price"], datos[i]["medium_price"],max);
+    }
+    return [min,max];
+}
+
+/*
 objetivo: Dibuja desde 0 el espacio de la gráfica y sus etiquetas. También manda a llamar serie() para las gráficas
 principales.
 
@@ -95,17 +113,16 @@ function grafica(datos){
     lnz=cnv.getContext("2d");
     if(datos.length==0) return; //Si no hay datos, no hace nada para evitar errores.
 
-    //Para el mínimo y máximo, asumimos que en la api, la primer posición en el arreglo tiene los datos más recientes
-    //y en los datos recientes asumimos que es el valor mínimo de precios. Caso contrario con la última posición del
-    //arreglo, la cual asumimos es el valor máximo en precios.
-    max=parseFloat(datos[datos.length-1]["sale_price"]);//Aquí se asume que el valor máximo será el último en el arreglo.
-    min=parseFloat(datos[0]["purchase_price"]);//Lo mismo para el mínimo, el valor mínimo será el primero.
+    min = encuentraExtremos(datos);
+    max=min[1];
+    min=min[0];
     conv=dim(datos.length);
 
     x=25;
+    const MESES = {"January" : 'Ene', "February" : "Feb", "March" : "Mar", "April" : "Abr", "May" : "May", "June" : "Jun","July":"Jul","August":"Ago","September":"Sep","October":"Oct","November":"Nov","December":"Dic"};
     for(i=datos.length-1;i>=0;i--){
         //Dibujamos en el lienzo las etiquetas de los meses 
-        lnz.fillText(datos[i]["month_name"],centrar(x,datos[i]["month_name"]),cnv.height-1.5*25);//Colocamos etiquetas.
+        if(datos.length<=24) lnz.fillText(MESES[datos[i]["month_name"]],centrar(x,MESES[datos[i]["month_name"]]),cnv.height-1.5*25);//Colocamos etiquetas.
         if(datos[i]["month"]==1 && i<datos.length-1){
             lnz.fillText(datos[i]["year"],centrar(x,datos[i]["year"]),cnv.height-0.5*25);//Coloca el año cuando sea Enero
         }
@@ -183,6 +200,7 @@ function precios(datos,per,variar){
     const FILA3 = document.getElementById("variacion");
     FILA3.setAttribute("class", "subtituloCarro");
     const TIPO = ["sale_price", "medium_price", "purchase_price"]
+    const COLOR=[["venta","green"],["medio","orange"],["compra","blue"]]
     for(i=0;i<3;i++){
         const CONTENEDOR = document.createElement("td");
         FILA.appendChild(CONTENEDOR);
@@ -195,8 +213,111 @@ function precios(datos,per,variar){
         const CONTENEDOR3 = document.createElement("td");
         FILA3.appendChild(CONTENEDOR3);
         CONTENEDOR3.innerHTML = "-$" + (-variar[i][0]) + " (" + variar[i][1] + "%)"; 
+
+        const LEYENDA = document.getElementById(COLOR[i][0]);
+        const CIRCULO = LEYENDA.getContext("2d");
+        CIRCULO.arc(6,6,5,0,2*Math.PI);
+        CIRCULO.fillStyle=COLOR[i][1];
+        CIRCULO.fill();
         //variar[i] para avanzar entre venta, medio y compra
         //variar[i][0] nos da el precio, variar[i][1] nos da porcentaje
+    }
+}
+
+/*
+objetivo: Cambiar la cantidad de datos graficados respecto a el botón preisonado
+
+params:
+    meses: un entero con los meses que se desean desplegar.
+    id: texto, id del vehículo buscado para sus datos en la API.
+    kdec: entero, valor ingresado por el usuario en menu_autos.
+
+retorna: No retorna, solo vuelve a cargar la página con nuevos valores.
+*/
+function nuevoPeriodo(meses, id,kdec){
+    location.href="http://localhost/reto/AutoBuscado/grafica.php?v="+id+"&t="+meses+"&mil={'mileage': {'name': '"+kdec+"'}}";
+}
+
+/*
+objetivo: Cambiar lo desplegado por las gráficas dependiendo de la cantidad de datos.
+
+params:
+    eleccion: cantidad de meses que representa el botón presionado.
+    id: texto, id del vehículo buscado para sus datos en la API.
+    kdec: entero, valor ingresado por el usuario en menu_autos.
+
+retorna: No retorna
+*/
+function botones(eleccion,id,kdec){
+    const CONTENEDOR = document.getElementById("botones");
+    for(j=3;j<=48;j*=2){
+        const BOTON = document.createElement("button");
+        if(j>24) {
+            BOTON.setAttribute("onclick","nuevoPeriodo(10000, '"+id+"', '"+kdec+"')");
+            BOTON.innerHTML="MAX";
+        }
+        else{
+            BOTON.setAttribute("onclick","nuevoPeriodo("+j+", '"+id+"', '"+kdec+"')");
+            if(j<12) BOTON.innerHTML=j+"M";
+            else BOTON.innerHTML=(j/12)+"A"
+        }
+        if(eleccion<=3 && eleccion>2) BOTON.setAttribute("disabled","true");
+        eleccion/=2;
+        CONTENEDOR.appendChild(BOTON);
+    }
+}
+
+/*
+objetivo: Mostrar datos de kilometraje y graficarlos.
+
+params:
+    kmin: entero, valor en la API "historic" con el endpoint "km_minimum" del vehículo consultado.
+    kavr: entero, valor en la API "historic" con el endpoint "km_average" del vehículo consultado.
+    kmax: entero, valor en la API "historic" con el endpoint "km_maximum" del vehículo consultado.
+    kdec: entero, valor ingresado por el usuario en menu_autos.
+
+retorna: No retorna.
+*/
+
+function kilometraje(kmin, kavr, kmax,kdec){
+    const FILA = document.getElementById("km");
+    dato = document.createElement("td");
+    dato.innerHTML=kmin+"-"+kmax+"km";
+    FILA.appendChild(dato);
+
+    dato = document.createElement("td");
+    dato.innerHTML=kavr+"km";
+    FILA.appendChild(dato);
+
+    esq=document.getElementById("esquema");
+    cuadros=esq.getContext("2d");
+    cuadros.font="15px arial";
+    cuadros.fillText(kmin+"km",0,60);
+    cuadros.textAlign="right";
+    cuadros.fillText(kmax+"km",700,60)
+    cuadros.fillStyle="rgb(212, 212, 212)";
+    rg=(kmax-kmin)/21;
+    for(i=0; i<21;i++){
+        if(i==0 || i==20 || ((rg*(i+1)+kmin)>=kavr && (rg*i+kmin)<kavr)) {
+            if(i!=0 && i!=20){
+                cuadros.fillStyle="black";
+                cuadros.textAlign="center";
+                cuadros.fillText(kavr+"km",(600/21)*i+5*i+(600/21)/2,60)
+            }
+            const gradient = cuadros.createLinearGradient(0,0,0,40);
+            gradient.addColorStop(0,"gray");
+            gradient.addColorStop(1,"rgb(212, 212, 212)");
+            cuadros.fillStyle=gradient;
+        }
+        if((rg*(i+1)+kmin)>=kdec && (rg*i+kmin)<kdec){
+            const gradient = cuadros.createLinearGradient(0,0,0,40);
+            gradient.addColorStop(0,"rgb(138, 223, 251)");
+            gradient.addColorStop(0.5,"rgb(39, 112, 248)");
+            gradient.addColorStop(1,"rgb(138, 223, 251)");
+            cuadros.fillStyle=gradient;
+        }
+        cuadros.fillRect((600/21)*i+5*i,0,(600/21),40);
+        cuadros.fillStyle="rgb(212, 212, 212)";
     }
 }
 
@@ -208,10 +329,12 @@ params:
 
 return: No retorna
 */
-function llenarDatos(datos){
+function llenarDatos(datos,id,mil){
     //alert(datos);
     datos=JSON.parse(datos);
     if(datos["historic"].length==0) return;
     grafica(datos["historic"]);
     precios(datos["historic"][0], datos["historic"].length, [[datos["sale_price_variation"], datos["sale_price_percentage_variation"]], [datos["medium_price_variation"], datos["medium_price_percentage_variation"]], [datos["purchase_price_variation"], datos["purchase_price_percentage_variation"]]]);
+    botones(datos["historic"].length,id, mil["mileage"]["name"]);
+    kilometraje(datos["km_minimum"], datos["km_average"], datos["km_maximum"],mil['mileage']['name']);
 }
