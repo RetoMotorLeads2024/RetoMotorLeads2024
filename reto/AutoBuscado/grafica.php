@@ -30,7 +30,10 @@
                     <td id="botones"></td>
                 </tr>
                 <tr style="height:60%;">
-                    <td><canvas id="gr" width="900" height="250" style="width:100%; height: 100%;"></canvas></td>
+                    <td>
+                        <canvas id="gr" width="800" height="250"></canvas>
+                        <canvas id="display" width="800" height="250" style="width:100%; height: 100%;"></canvas>
+                    </td>
                 </tr>
                 <tr>
                     <td>
