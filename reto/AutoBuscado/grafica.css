@@ -12,3 +12,13 @@
     font-size: 10pt;
     text-align: left;
 }
+
+#botones{
+    text-align: right;
+}
+
+button{
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 10px;
+}
