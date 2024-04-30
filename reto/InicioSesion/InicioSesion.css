@@ -1,0 +1,95 @@
+tr{
+    text-align: left;
+}
+
+body{
+    text-align: center; 
+}
+
+form{
+    display: inline-block;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-left: 10%;
+}
+
+.form-container{
+    margin-left: 20%;
+}
+
+.imagenLogo{
+    width: 20%; 
+    height: 5%;
+}
+
+.imagenGradiente{
+    border-radius: 3%;
+    width: 100%; 
+    height: 85%;
+}
+
+.textoAzul{
+    color: #0460cc;
+    font-weight: bold;
+    font-size: 8pt;
+    font-family: 'Poppins', sans-serif;
+}
+
+.titulo{
+    background: linear-gradient(#152b3f,#3e81bc);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24pt;
+    text-align: left;
+    line-height: 1.1;
+}
+
+.subtituloL{
+    font-family: 'Poppins', sans-serif;
+    font-size: 11pt;
+}
+
+.subtituloSmallL{
+    font-family: 'Poppins', sans-serif;
+    font-size: 8pt;
+}
+
+.pwdL{
+    font-family: 'Poppins', sans-serif;
+    font-size: 7pt;
+    font-weight: bold;
+    color: #2b2ef5;
+}
+
+.campos{
+    padding: 3px;
+    font-size: 9pt;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 70%;
+}
+
+.boton{
+    background: linear-gradient(0deg, #162579, #0088f0);
+    color: white;
+    border: none;
+    padding: 5px 60px;
+    text-align: center;
+    font-size: 9pt;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 70%;
+}
+
+.boton:hover{
+    background: linear-gradient(90deg, #162579, #0088f0); 
+}
