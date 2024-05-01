@@ -2,6 +2,8 @@ cnv=null;       //Nuestro canvas. Elemento con id "gr"
 lnz=null;       //Lienzo donde dibujamos sobre el canvas. Se dibuja en 2d.
 min=0;          //Valor mínimo para definir el rango
 max=0;          //Valor máximo para definir el rango
+pts=[];         //Arreglo de posiciones y valores de los puntos
+display=null;   //Variable que contendrá el contexto 2d del segundo canvas.
 
 /*
 objetivo: Centrar el texto dibujado calculando su anchura en pixeles
@@ -49,6 +51,7 @@ function serie(datos,ser,conv,col){
         lnz.beginPath();
         lnz.arc(x,cnv.height-(datos[i][ser]-min)*conv[1]-40,5,0,2*Math.PI); //Primer círculo.
         lnz.fill();
+        pts.push([x,cnv.height-(datos[i][ser]-min)*conv[1]-40,datos[i][ser]]);
         lnz.fillStyle="white";  //Color del siguiente círculo
         lnz.beginPath();
         lnz.arc(x,cnv.height-(datos[i][ser]-min)*conv[1]-40,2,0,2*Math.PI); //Segundo círculo, más chico que el primero
@@ -81,7 +84,7 @@ function dim(n){
 }
 
 /*
-objectivo: Encontrar maximos y minimos de una serie de datos.
+objetivo: Encontrar maximos y minimos de una serie de datos.
 
 params:
     datos: diccionario de la API (solo historic)
@@ -99,6 +102,33 @@ function encuentraExtremos(datos){
 }
 
 /*
+objetivo: función para desplegar o eliminar cuadro con el dato correspondiente a un punto si este es presionado
+
+params:
+    e: evento
+    
+retorna: nada
+*/
+function desplegar(e){
+    const x = e.pageX-cnv.getBoundingClientRect().left;
+    const y = e.pageY-cnv.getBoundingClientRect().top;
+    console.log(x);
+    display.reset();
+    for(dt of pts){
+        if(dt[0]-5<=x && x<=dt[0]+5 && dt[1]-5<=y && y<=dt[1]+5){
+            display.textAlign="center";
+            display.strokeStyle="black";
+            display.fillStyle="white";
+            display.rect(dt[0]-30,dt[1]-30,60,20);
+            display.stroke();
+            display.fill();
+            display.fillStyle="black";
+            display.fillText('$'+dt[2],dt[0],dt[1]-20);
+        }
+   }
+}
+
+/*
 objetivo: Dibuja desde 0 el espacio de la gráfica y sus etiquetas. También manda a llamar serie() para las gráficas
 principales.
 
@@ -108,8 +138,14 @@ params:
 No retorna.
  */
 function grafica(datos){
-    cnv=document.getElementById("gr");
-    lnz=cnv.getContext("2d");
+    cnv=document.getElementById("gr"); //canvas en el que se grafica
+    lnz=cnv.getContext("2d"); //espacio 2d del canvas en el que se grafica
+
+    display = document.getElementById("display");
+    display.addEventListener("click",desplegar,false); //añadir listener al display
+    display.setAttribute("style","position:absolute; top:"+cnv.getBoundingClientRect().top+"px; left: "+cnv.getBoundingClientRect().left+"px;"); //Posicionar display sobre cnv
+    display = display.getContext("2d");
+    
     if(datos.length==0) return; //Si no hay datos, no hace nada para evitar errores.
 
     min = encuentraExtremos(datos);
@@ -238,7 +274,7 @@ function nuevoPeriodo(meses, id,kdec){
 }
 
 /*
-objetivo: Cambiar lo desplegado por las gráficas dependiendo de la cantidad de datos.
+objetivo: Cambiar lo desplegado por las gráficas dependiendo de la cantidad de datos y crear los botones para seleccionar el periodo a desplegar.
 
 params:
     eleccion: cantidad de meses que representa el botón presionado.
@@ -262,7 +298,7 @@ function botones(eleccion,id,kdec){
             if(j<12) BOTON.innerHTML=j+"M";
             else BOTON.innerHTML=(j/12)+"A"
         }
-        if(eleccion<=j && !bandera){
+        if((eleccion<=j || j>24) && !bandera){ //Si el botón es el elegido y la bandera no está activa, se debe deshabilitar y encender la bandera
             console.log(eleccion);
             BOTON.setAttribute("disabled","true");
             bandera = true;
@@ -315,7 +351,7 @@ function kilometraje(kmin, kavr, kmax,kdec){
             gradient.addColorStop(1,"rgb(212, 212, 212)");
             cuadros.fillStyle=gradient;
         }
-        if((rg*(i+1)+kmin)>=kdec && ((rg*i+kmin)<kdec || i==0)){
+        if((rg*i+kmin)<=kdec && kdec<=(rg*(i+1)+kmin)){ //Si el kilometraje elejido está entre el rango que abarca un rectángulo, encenderlo
             const gradient = cuadros.createLinearGradient(0,0,0,40);
             gradient.addColorStop(0,"rgb(138, 223, 251)");
             gradient.addColorStop(0.5,"rgb(39, 112, 248)");
@@ -328,7 +364,7 @@ function kilometraje(kmin, kavr, kmax,kdec){
 }
 
 /*
-objetivo: Llenamos el espacio de gráfica, precios, y kilometraje.
+objetivo: Llenamos el espacio de precios, botones, grafica y kilometraje.
 
 params:
     datos: Los datos de la api
@@ -338,8 +374,8 @@ return: No retorna
 function llenarDatos(datos,id,mil){
     datos=JSON.parse(datos);
     if(datos["historic"].length==0) return;
-    grafica(datos["historic"]);
     precios(datos["historic"][0], datos["historic"].length, [[datos["sale_price_variation"], datos["sale_price_percentage_variation"]], [datos["medium_price_variation"], datos["medium_price_percentage_variation"]], [datos["purchase_price_variation"], datos["purchase_price_percentage_variation"]]]);
     botones(datos["historic"].length,id, mil["mileage"]["name"]);
+    grafica(datos["historic"]);
     kilometraje(datos["km_minimum"], datos["km_average"], datos["km_maximum"],mil['mileage']['name']);
 }
