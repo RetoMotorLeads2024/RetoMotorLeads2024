@@ -30,15 +30,18 @@
                 <tr>
                     <td id="botones"></td>
                 </tr>
-                <tr style="height:60%;">
-                    <td><canvas id="gr" width="900" height="250" style="width:100%; height: 100%;"></canvas></td>
+                <tr>
+                    <td>
+                        <canvas id="gr" width="800" height="250"></canvas>
+                        <canvas id="display" width="800" height="250" style="width:100%; height: 100%;"></canvas>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <table width="100%" style="text-align: center;">
                             <tr>
-                                <td><p class="subtituloCarro">Kilometro Esperado</p></td>
-                                <td><p class="subtituloCarro">Kilometraje Promedio</p></td>
+                                <td>Kilometro Esperado</td>
+                                <td>Kilometraje Promedio</td>
                             </tr>
                             <tr id="km" style="font-weight: bold;"></tr>
                             <tr>
