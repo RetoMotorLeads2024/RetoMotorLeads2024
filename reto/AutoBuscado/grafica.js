@@ -112,7 +112,6 @@ retorna: nada
 function desplegar(e){
     const x = e.pageX-cnv.getBoundingClientRect().left;
     const y = e.pageY-cnv.getBoundingClientRect().top;
-    console.log(x);
     display.reset();
     for(dt of pts){
         if(dt[0]-5<=x && x<=dt[0]+5 && dt[1]-5<=y && y<=dt[1]+5){
@@ -299,7 +298,6 @@ function botones(eleccion,id,kdec){
             else BOTON.innerHTML=(j/12)+"A"
         }
         if((eleccion<=j || j>24) && !bandera){ //Si el botón es el elegido y la bandera no está activa, se debe deshabilitar y encender la bandera
-            console.log(eleccion);
             BOTON.setAttribute("disabled","true");
             bandera = true;
         }
